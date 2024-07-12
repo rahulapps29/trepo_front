@@ -12,6 +12,19 @@ form.addEventListener("submit", function (event) {
   fetch(url)
     .then((response) => response.json())
     .then((data) => {
+      let totalAmt = 0;
+      data.tasks.forEach((card) => {
+        totalAmt += card.amt;
+      });
+      // console.log(totalAmt);
+
+      function grandtotal() {
+        document.getElementById(
+          "grandtotal"
+        ).innerHTML = `Filter total: ${totalAmt}`;
+      }
+      grandtotal();
+
       const resultsDiv = document.getElementById("results");
       //   resultsDiv.innerHTML = JSON.stringify(data, null, 2); // Display JSON data
       let mandict = data.tasks;
@@ -192,41 +205,6 @@ form.addEventListener("submit", function (event) {
             ClosingBalance: num1.running_total,
           });
         });
-
-        // table 2
-
-        // Generate HTML table from JSON data
-        const table = document.createElement("table");
-
-        // Create table header row
-        //   const headers = Object.keys(data.tasks[0]);
-        const headers = [
-          "year_month",
-          "gave_to_rovin",
-          "got_from_rovin",
-          "ClosingBalance",
-        ];
-        console.log(headers);
-        const headerRow = table.insertRow();
-        headers.forEach((headerText) => {
-          const th = document.createElement("th");
-          th.textContent = headerText;
-          headerRow.appendChild(th);
-        });
-
-        // Create table rows with data
-        closingbalance.forEach((obj) => {
-          const row = table.insertRow();
-          headers.forEach((header) => {
-            const cell = row.insertCell();
-            cell.textContent = obj[header];
-          });
-        });
-
-        // Append table to container
-        document.getElementById("table-container").appendChild(table);
-
-        // table 2
 
         // unique card list
 
