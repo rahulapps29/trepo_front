@@ -191,8 +191,6 @@ form.addEventListener("submit", function (event) {
           item.running_total = runningTotal;
         });
 
-        var n = [1, 2, 3, 5, 7, 8, 9, 11, 12, 13, 14, 16, 17, 18, 20, 21, 22];
-        var m = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
         let closingbalance = [];
         monthlysummary_sorted.forEach((num1, index) => {
           const num2 = gave_to_rovin_summary_sorted[index];
@@ -314,7 +312,7 @@ form.addEventListener("submit", function (event) {
         const dynamicdata = pivotBy(sort3, "desc", "my", "amt", colorlist);
 
         console.log("step");
-        console.log(Object.values(closingbalance));
+        console.log(Object.values(dynamicdata));
         console.log(Object.values(gave_to_rovin_summary_sorted));
         console.log(Object.values(monthlysummary_sorted));
         console.log(got_from_rovin_summary);

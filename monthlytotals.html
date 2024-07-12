@@ -49,12 +49,12 @@
           });
           // console.log(totalAmt);
 
-          function grandtotal() {
-            document.getElementById(
-              "grandtotal"
-            ).innerHTML = `Closing Balance: ${totalAmt}`;
-          }
-          grandtotal();
+          //   function grandtotal() {
+          //     document.getElementById(
+          //       "grandtotal"
+          //     ).innerHTML = `Filter total: ${totalAmt}`;
+          //   }
+          //   grandtotal();
 
           // creating initial summary
           let summary_month_year = [];
@@ -198,41 +198,61 @@
             });
           });
 
-          // table 2
+          // unique card list
 
-          // Generate HTML table from JSON data
-          const table = document.createElement("table");
+          let uniquecards = [];
+          uniquecards = summary_month_year.reduce((uniqueValues, obj) => {
+            if (!uniqueValues.includes(obj["desc"])) {
+              uniqueValues.push(obj["desc"]);
+            }
+            return uniqueValues;
+          }, []);
 
-          // Create table header row
-          //   const headers = Object.keys(data.tasks[0]);
-          const headers = [
-            "year_month",
-            "gave_to_rovin",
-            "got_from_rovin",
-            "ClosingBalance",
-          ];
-          console.log(headers);
-          const headerRow = table.insertRow();
-          headers.forEach((headerText) => {
-            const th = document.createElement("th");
-            th.textContent = headerText;
-            headerRow.appendChild(th);
+          const colorNumberlist = Array.from(
+            { length: uniquecards.length },
+            (_, i) => i + 1
+          );
+
+          colorlist = colorNumberlist.map((x) => {
+            return [selectColor(x, uniquecards.length)];
           });
 
-          // Create table rows with data
-          closingbalance.forEach((obj) => {
-            const row = table.insertRow();
-            headers.forEach((header) => {
-              const cell = row.insertCell();
-              cell.textContent = obj[header];
-            });
+          const crossProduct = (a, b) =>
+            a.reduce((acc, x) => [...acc, ...b.map((y) => [x, y])], []);
+
+          const crossp = crossProduct(uniquemonthyear, uniquecards);
+
+          crosspd = crossp.map((x) => {
+            return { my: x[0], desc: x[1], amt: 0 };
           });
 
-          // Append table to container
-          document.getElementById("table-container").appendChild(table);
+          const summary_step1 = [...summary_month_year, ...crosspd];
 
-          // table 2
+          let crosspe = summary_step1.map((x) => {
+            return { my: x.my + " " + x.desc, amt: x.amt };
+          });
 
+          let summary_step2 = crosspe.reduce((a, { my, amt }) => {
+            a[my] = a[my] || { my, amt: 0 };
+            a[my].amt += amt;
+            return a;
+          }, {});
+          let summary_step3 = Object.values(summary_step2);
+
+          let crosspf = summary_step3.map((x) => {
+            return {
+              my: x.my.substring(0, 7),
+              desc: x.my.substring(8, x.my.length),
+              amt: x.amt,
+            };
+          });
+
+          const sort1 = crosspf.sort(dynamicSort("desc"));
+          const sort2 = sort1.sort(dynamicSort("my"));
+          const sort3 = sort2.sort(dynamicSort("desc"));
+          const sort_populate = summary_month_year.sort(dynamicSort("desc"));
+          const sort_populate2 = sort_populate.sort(dynamicSort("my"));
+          console.log(sort_populate2);
           function dynamicSort(property) {
             var sortOrder = 1;
             if (property[0] === "-") {
@@ -251,6 +271,10 @@
                   : 0;
               return result * sortOrder;
             };
+          }
+          function selectColor(colorNum, colors) {
+            if (colors < 1) colors = 1; // defaults to one color - avoid divide by zero
+            return "hsl(" + ((colorNum * (360 / colors)) % 360) + ",100%,50%)";
           }
         })
 
