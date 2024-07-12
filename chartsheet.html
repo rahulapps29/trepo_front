@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Filter API Data</title>
+    <link rel="stylesheet" href="style.css" />
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.0.1/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.4.0/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.34/moment-timezone-with-data.min.js"></script>
+  </head>
+  <body>
+    <nav>
+      <ul>
+        <li><a href="index.html">Closing balance</a></li>
+        <li><a href="transactiondetails.html">Transaction Details</a></li>
+        <li><a href="chartsheet.html">Chart</a></li>
+      </ul>
+    </nav>
+
+    <h2>Filter Data</h2>
+
+    <form id="filterForm">
+      <!-- <label for="startDate">Start Date:</label>
+      <input type="date" id="startDate" name="startDate" />
+
+      <label for="endDate">End Date:</label>
+      <input type="date" id="endDate" name="endDate" /> -->
+
+      <!-- <label for="productCategory">Card:</label>
+      <select id="productCategory" name="name">
+        <option value="">-- Select Category --</option>
+        <option value="icici">icici</option>
+        <option value="au">au</option>
+        <option value="sbi">sbi</option>
+      </select> -->
+
+      <label for="Desc">Description:</label>
+      <input type="text" id="Desc" name="desc" step="0.01" />
+      <label for="year_month">Month_Year:</label>
+      <input type="text" id="year_month" name="year_month" step="0.01" />
+
+      <label for="transtype">Trans Type:</label>
+      <input type="text" id="transtype" name="transtype" step="0.01" />
+
+      <!-- <label for="minPrice">Minimum Price:</label>
+      <input type="number" id="minPrice" name="amt" step="0.01" /> -->
+
+      <!-- <label for="maxPrice">Maximum Price:</label>
+      <input type="number" id="maxPrice" name="maxPrice" step="0.01" /> -->
+
+      <button type="submit">Apply Filters</button>
+      <button onclick="location.reload();">Refresh page</button>
+    </form>
+
+    <!-- <div id="results">
+      Filtered results will appear here
+    </div> -->
+    <div>
+      <canvas
+        id="stackedChartID"
+        style="height: 50%; max-height: 650px"
+      ></canvas>
+    </div>
+
+    <h2>Filtered Details</h2>
+    <div id="table-container"></div>
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

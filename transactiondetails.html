@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JSON Data to HTML Table</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 20px;
+      }
+      th,
+      td {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <ul>
+        <li><a href="index.html">Closing balance</a></li>
+        <li><a href="transactiondetails.html">Transaction Details</a></li>
+        <li><a href="chartsheet.html">Chart</a></li>
+      </ul>
+    </nav>
+    <h2>JSON Data to HTML Table Example</h2>
+    <div id="table-container"></div>
+
+    <script>
+      // Example JSON data from an API endpoint
+      const apiUrl = "https://treporting.onrender.com/api/tasks/d";
+
+      // Fetch data from the API
+      fetch(apiUrl)
+        .then((response) => response.json())
+        .then((data) => {
+          // Generate HTML table from JSON data
+          const table = document.createElement("table");
+
+          // Create table header row
+          // const headers = Object.keys(data.tasks[0]);
+          const headers = ["transtype", "desc", "date_string", "amt"];
+          const headerRow = table.insertRow();
+          headers.forEach((headerText) => {
+            const th = document.createElement("th");
+            th.textContent = headerText;
+            headerRow.appendChild(th);
+          });
+
+          // Create table rows with data
+          data.tasks.forEach((obj) => {
+            const row = table.insertRow();
+            headers.forEach((header) => {
+              const cell = row.insertCell();
+              cell.textContent = obj[header];
+            });
+          });
+
+          // Append table to container
+          document.getElementById("table-container").appendChild(table);
+        })
+        .catch((error) => console.error("Error fetching data:", error));
+    </script>
+  </body>
+</html>
