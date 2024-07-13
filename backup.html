@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Download JSON from API</title>
+  </head>
+  <body>
+    <nav>
+      <ul>
+        <li><a href="index.html">Closing balance</a></li>
+        <li><a href="transactiondetails.html">Transaction Details</a></li>
+        <li><a href="chartsheet.html">Chart</a></li>
+        <li><a href="mt.html">Monthly Totals</a></li>
+        <li><a href="backup.html">Backup</a></li>
+      </ul>
+    </nav>
+    <br />
+    <button id="downloadBtn">Download JSON</button>
+
+    <script>
+      document.getElementById("downloadBtn").addEventListener("click", () => {
+        // Replace with your API endpoint
+        const apiUrl = "https://treporting.onrender.com/api/tasks/d";
+
+        fetch(apiUrl)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(
+                "Network response was not ok " + response.statusText
+              );
+            }
+            return response.json();
+          })
+          .then((data) => {
+            // Convert JSON data to string
+            const jsonStr = JSON.stringify(data, null, 2);
+
+            // Create a blob from the JSON string
+            const blob = new Blob([jsonStr], { type: "application/json" });
+
+            // Create a link element
+            const link = document.createElement("a");
+
+            // Set the download attribute with a filename
+            link.download = "data.json";
+
+            // Create a URL for the blob and set it as the href attribute
+            link.href = window.URL.createObjectURL(blob);
+
+            // Append the link to the body
+            document.body.appendChild(link);
+
+            // Programmatically click the link to trigger the download
+            link.click();
+
+            // Remove the link from the document
+            document.body.removeChild(link);
+          })
+          .catch((error) => {
+            console.error(
+              "There was a problem with the fetch operation:",
+              error
+            );
+          });
+      });
+    </script>
+  </body>
+</html>
