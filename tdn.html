@@ -2,23 +2,23 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Monthly Closing balance</title>
+    <title>Transaction Table</title>
     <link rel="stylesheet" href="style.css" />
     <style>
       table {
-        border-collapse: collapse;
         width: 100%;
-        margin-top: 20px;
+        border-collapse: collapse;
       }
       th,
       td {
-        border: 1px solid #dddddd;
-        text-align: left;
         padding: 8px;
+        text-align: left;
+        border: 1px solid #ddd;
       }
       th {
-        background-color: #f2f2f2;
+        background-color: #f4f4f4;
       }
     </style>
   </head>
@@ -30,14 +30,28 @@
         <li><a href="chartsheet.html">Chart</a></li>
         <li><a href="mt.html">Monthly Totals</a></li>
         <li><a href="backup.html">Backup</a></li>
-
         <li><a href="tdnr.html">Trans Details in Reverse order</a></li>
       </ul>
     </nav>
-    <h2 id="grandtotal">Closing Balance:</h2>
-    <h2>Monthly Closing balance</h2>
-    <div id="table-container"></div>
+    <h2>Transaction Table with Running Total</h2>
 
-    <script src="script.js"></script>
+    <table id="Transtablez">
+      <thead>
+        <tr>
+          <!-- "transtype", "desc", "date_string", "amt" -->
+
+          <th>Date</th>
+          <th>Trans Type</th>
+          <th>Gave</th>
+          <th>Got</th>
+          <th>Running Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Table rows will be populated here -->
+      </tbody>
+    </table>
+
+    <script src="stdn.js"></script>
   </body>
 </html>
